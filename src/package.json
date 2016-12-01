@@ -2,7 +2,7 @@
   "name": "everywhere.js-interface",
   "version": "1.0.0",
   "description": "Replace me with a description of your JavaScript web app",
-  "main": "index.js",
+  "main": "index.ts",
   "repository": {
     "url": "https://github.com/parkertm/everywhere.js-interface",
     "type": "git"
@@ -11,5 +11,9 @@
   "license": "MIT",
   "scripts": {
     "start": "node ."
+  },
+  "devDependencies": {
+    "typescript": "^2.0.10",
+    "typings": "^2.0.0"
   }
 }
