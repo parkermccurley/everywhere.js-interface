@@ -1,10 +1,10 @@
 {
   "name": "everywhere.js-interface",
   "version": "1.0.0",
-  "description": "Replace me with a description of your JavaScript web app",
+  "description": "Put the description of your JavaScript-powered web app here!",
   "main": "index.js",
   "repository": {
-    "url": "https://github.com/parkertm/everywhere.js-interface",
+    "url": "https://github.com/parkertm/everywhere.js-server.git",
     "type": "git"
   },
   "author": "parker mccurley",
