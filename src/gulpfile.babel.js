@@ -2,6 +2,7 @@ import gulp from 'gulp';
 import del from 'del';
 import babel from 'gulp-babel';
 import eslint from 'gulp-eslint';
+import mocha from 'gulp-mocha';
 import webpack from 'webpack-stream';
 import webpackConfig from './webpack.config.babel';
 const paths = {
@@ -9,6 +10,7 @@ const paths = {
   webpackEntry: './app/index.jsx',
   webpackClientBundle: './dist/bundle.js?(.map)',
   gulpFile: './gulpfile.babel.js',
+  tests: './lib/**/*.spec.js',
   app: './app/**/*.js?(x)',
   libDir: './lib',
   distDir: './dist'
@@ -36,7 +38,12 @@ gulp.task('build', ['clean', 'lint'], () =>
     .pipe(gulp.dest(paths.libDir))
 );
 
-gulp.task('main', ['clean', 'lint'], () =>
+gulp.task('test', ['build'], () =>
+  gulp.src(paths.tests)
+    .pipe(mocha())
+);
+
+gulp.task('main', ['test'], () =>
   gulp.src(paths.webpackEntry)
     .pipe(webpack(webpackConfig))
     .pipe(gulp.dest(paths.distDir))
