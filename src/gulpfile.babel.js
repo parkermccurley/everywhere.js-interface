@@ -4,6 +4,7 @@ import babel from 'gulp-babel';
 import eslint from 'gulp-eslint';
 import { exec } from 'child_process';
 const paths = {
+  webpackFile: './webpack.config.babel.js',
   gulpFile: './gulpfile.babel.js',
   appDir: './app/**/*.js',
   libDir: './lib'
@@ -13,6 +14,7 @@ gulp.task('clean', () => del(paths.libDir));
 
 gulp.task('lint', () => {
   gulp.src([
+    paths.webpackFile,
     paths.gulpFile,
     paths.appDir
   ])
