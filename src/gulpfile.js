@@ -12,7 +12,7 @@ gulp.task('clean', function gulpClean() {
 });
 
 gulp.task('build', ['clean'], function gulpBuild() {
-  return gulp.src(path.appDir)
+  return gulp.src(paths.appDir)
     .pipe(babel())
     .pipe(gulp.dest(paths.libDir));
 });
