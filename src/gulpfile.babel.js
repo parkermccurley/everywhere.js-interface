@@ -1,8 +1,10 @@
 import gulp from 'gulp';
 import del from 'del';
 import babel from 'gulp-babel';
+import eslint from 'gulp-eslint';
 import { exec } from 'child_process';
 const paths = {
+  gulpFile: './gulpfile.babel.js',
   appDir: './app/**/*.js',
   libDir: './lib'
 };
@@ -11,7 +13,17 @@ gulp.task('clean', () => {
   return del(paths.libDir);
 });
 
-gulp.task('build', ['clean'], () => {
+gulp.task('lint', () => {
+  return gulp.src([
+    paths.gulpFile,
+    paths.appDir
+  ])
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
+});
+
+gulp.task('build', ['clean', 'lint'], () => {
   return gulp.src(paths.appDir)
     .pipe(babel())
     .pipe(gulp.dest(paths.libDir));
