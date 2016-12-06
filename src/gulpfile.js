@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var del = require('del');
 var babel = require('gulp-babel');
-var exec = require('child-process').exec;
+var exec = require('child_process').exec;
 var paths = {
   appDir: './app/**/*.js',
   libDir: './lib'
