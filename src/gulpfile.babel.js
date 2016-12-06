@@ -9,12 +9,10 @@ const paths = {
   libDir: './lib'
 };
 
-gulp.task('clean', () => {
-  return del(paths.libDir);
-});
+gulp.task('clean', () => del(paths.libDir));
 
 gulp.task('lint', () => {
-  return gulp.src([
+  gulp.src([
     paths.gulpFile,
     paths.appDir
   ])
@@ -24,15 +22,15 @@ gulp.task('lint', () => {
 });
 
 gulp.task('build', ['clean', 'lint'], () => {
-  return gulp.src(paths.appDir)
+  gulp.src(paths.appDir)
     .pipe(babel())
     .pipe(gulp.dest(paths.libDir));
 });
 
 gulp.task('main', ['build'], (callback) => {
   exec(`node ${ paths.libDir }`, (error, stdout) => {
-   console.log(stdout);
-   return callback(error);
+    console.log(stdout);
+    return callback(error);
   });
 });
 
