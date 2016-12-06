@@ -9,7 +9,7 @@ every (reasonable) platform that JavaScript runs on. The concept behind each
 repository is to have a near-zero startup time, but also act as a blank
 canvas.
 
-This repository provides an Angular2-powered single page app.
+This repository provides a React-powered web app.
 
 ### System Dependencies
 
