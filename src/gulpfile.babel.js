@@ -2,7 +2,8 @@ import gulp from 'gulp';
 import del from 'del';
 import babel from 'gulp-babel';
 import eslint from 'gulp-eslint';
-import { exec } from 'child_process';
+import webpack from 'webpack-stream';
+import webpackConfig from './webpack.config.babel';
 const paths = {
   webpackFile: './webpack.config.babel.js',
   gulpFile: './gulpfile.babel.js',
