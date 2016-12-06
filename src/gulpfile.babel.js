@@ -6,39 +6,44 @@ import webpack from 'webpack-stream';
 import webpackConfig from './webpack.config.babel';
 const paths = {
   webpackFile: './webpack.config.babel.js',
+  webpackEntry: './app/index.jsx',
+  webpackClientBundle: './dist/bundle.js?(.map)',
   gulpFile: './gulpfile.babel.js',
-  appDir: './app/**/*.js',
-  libDir: './lib'
+  app: './app/**/*.js?(x)',
+  libDir: './lib',
+  distDir: './dist'
 };
 
-gulp.task('clean', () => del(paths.libDir));
+gulp.task('clean', () => del([
+  paths.libDir,
+  paths.webpackClientBundle
+]));
 
 gulp.task('lint', () => {
   gulp.src([
     paths.webpackFile,
     paths.gulpFile,
-    paths.appDir
+    paths.app
   ])
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
 
-gulp.task('build', ['clean', 'lint'], () => {
-  gulp.src(paths.appDir)
+gulp.task('build', ['clean', 'lint'], () =>
+  gulp.src(paths.app)
     .pipe(babel())
-    .pipe(gulp.dest(paths.libDir));
-});
+    .pipe(gulp.dest(paths.libDir))
+);
 
-gulp.task('main', ['build'], (callback) => {
-  exec(`node ${ paths.libDir }`, (error, stdout) => {
-    console.log(stdout);
-    return callback(error);
-  });
-});
+gulp.task('main', ['clean', 'lint'], () =>
+  gulp.src(paths.webpackEntry)
+    .pipe(webpack(webpackConfig))
+    .pipe(gulp.dest(paths.distDir))
+);
 
 gulp.task('watch', () => {
-  gulp.watch(paths.appDir, ['main']);
+  gulp.watch(paths.app, ['main']);
 });
 
 gulp.task('default', ['watch', 'main']);
