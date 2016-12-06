@@ -1,3 +1,4 @@
-export default function hello() {
-  console.log('Hello, world!');
-}
+import 'babel-polyfill';
+
+import React from 'react';
+import ReactDOM from 'react-dom';
