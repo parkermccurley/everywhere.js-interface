@@ -1,14 +1,25 @@
 {
   "name": "everywhere.js-interface",
   "version": "1.0.0",
+  "author": "parker mccurley",
+  "license": "MIT",
   "description": "Put the description of your JavaScript-powered web app here!",
-  "main": "index.js",
   "repository": {
     "url": "https://github.com/parkertm/everywhere.js-server.git",
     "type": "git"
   },
-  "author": "parker mccurley",
-  "license": "MIT",
+  "main": "index.js",
+  "devDependencies": {
+    "babel-preset-latest": "^6.16.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2"
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ]
+  },
   "scripts": {
     "start": "node ."
   }
