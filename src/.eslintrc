@@ -1,4 +1,7 @@
 {
+  "extends": [
+    "plugin:flowtype/recommended"
+  ],
   "env": {
     "node": true
   },
@@ -7,6 +10,7 @@
     "sourceType": "module"
   },
   "plugins": [
+    "flowtype",
     "import",
     "react"
   ]

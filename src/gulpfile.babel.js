@@ -2,9 +2,11 @@ import gulp from 'gulp';
 import del from 'del';
 import babel from 'gulp-babel';
 import eslint from 'gulp-eslint';
+import flow from 'gulp-flowtype';
 import mocha from 'gulp-mocha';
 import webpack from 'webpack-stream';
 import webpackConfig from './webpack.config.babel';
+
 const paths = {
   webpackFile: './webpack.config.babel.js',
   webpackEntry: './app/index.jsx',
@@ -29,7 +31,8 @@ gulp.task('lint', () => {
   ])
     .pipe(eslint())
     .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
+    .pipe(eslint.failAfterError())
+    .pipe(flow({ abort: true }))
 });
 
 gulp.task('build', ['clean', 'lint'], () =>
