@@ -39,6 +39,7 @@
   "babel": {
     "presets": [
       "latest",
+      "react",
       "flow"
     ]
   },
