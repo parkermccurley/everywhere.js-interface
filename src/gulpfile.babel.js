@@ -7,12 +7,12 @@ import mocha from 'gulp-mocha';
 import webpack from 'webpack';
 import webpackStream from 'webpack-stream';
 import webpackDevServer from 'webpack-dev-server';
-import webpackConfig from './webpack.config.babel';
-import webpackDevConfig from './webpack.dev.config.babel';
+import webpackConfig from './config/webpack.config.babel';
+import webpackDevConfig from './config/webpack.dev.config.babel';
 
 const paths = {
-  webpackFile: './webpack.config.babel.js',
-  webpackDevFile: './webpack.dev.config.babel.js',
+  webpackFile: './config/webpack.config.babel.js',
+  webpackDevFile: './config/webpack.dev.config.babel.js',
   webpackEntry: './app/index.jsx',
   webpackClientBundle: './dist/bundle.js?(.map)',
   gulpFile: './gulpfile.babel.js',
@@ -40,7 +40,7 @@ gulp.task('lint', () => {
     .pipe(flow({ abort: true }))
 });
 
-gulp.task('build', ['clean', 'lint'], () =>
+gulp.task('build', ['lint', 'clean'], () =>
   gulp.src(paths.app)
     .pipe(babel())
     .pipe(gulp.dest(paths.libDir))
@@ -51,7 +51,7 @@ gulp.task('test', ['build'], () =>
     .pipe(mocha())
 );
 
-gulp.task('webpack', ['test'], () =>
+gulp.task('webpack', ['build'], () =>
   gulp.src(paths.webpackEntry)
     .pipe(webpackStream(webpackConfig))
     .pipe(gulp.dest(paths.distDir))
