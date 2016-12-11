@@ -5,7 +5,8 @@ export default {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
   },
-  devtool: 'source-map',
+  debug: true,
+  devtool: 'eval-source-map',
   module: {
     loaders: [
       {
