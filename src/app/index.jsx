@@ -3,7 +3,7 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const message = "Hello, world!";
+const message = "It's alive!";
 
 const App = props => (
   <div>

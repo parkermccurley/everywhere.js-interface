@@ -4,11 +4,15 @@ import babel from 'gulp-babel';
 import eslint from 'gulp-eslint';
 import flow from 'gulp-flowtype';
 import mocha from 'gulp-mocha';
-import webpack from 'webpack-stream';
+import webpack from 'webpack';
+import webpackStream from 'webpack-stream';
+import webpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config.babel';
+import webpackDevConfig from './webpack.dev.config.babel';
 
 const paths = {
   webpackFile: './webpack.config.babel.js',
+  webpackDevFile: './webpack.dev.config.babel.js',
   webpackEntry: './app/index.jsx',
   webpackClientBundle: './dist/bundle.js?(.map)',
   gulpFile: './gulpfile.babel.js',
@@ -26,6 +30,7 @@ gulp.task('clean', () => del([
 gulp.task('lint', () => {
   gulp.src([
     paths.webpackFile,
+    paths.webpackDevFile,
     paths.gulpFile,
     paths.app
   ])
@@ -46,14 +51,22 @@ gulp.task('test', ['build'], () =>
     .pipe(mocha())
 );
 
-gulp.task('main', ['test'], () =>
+gulp.task('webpack', ['test'], () =>
   gulp.src(paths.webpackEntry)
-    .pipe(webpack(webpackConfig))
+    .pipe(webpackStream(webpackConfig))
     .pipe(gulp.dest(paths.distDir))
 );
 
 gulp.task('watch', () => {
-  gulp.watch(paths.app, ['main']);
+  gulp.watch(paths.app, ['webpack']);
 });
 
-gulp.task('default', ['watch', 'main']);
+gulp.task('development', (callback) => {
+  new webpackDevServer(webpack(webpackDevConfig), {
+    stats: {
+      colors: true
+    }
+  }).listen(8080, "localhost");
+});
+
+gulp.task('default', ['development', 'watch']);
